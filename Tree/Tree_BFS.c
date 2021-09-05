@@ -22,19 +22,21 @@ typedef struct
 } queue_t;
 
 tree_t* input_data(tree_t*);
-tree_t* tree_insert(tree_t**, int);
+tree_t* tree_insert(tree_t** , int );
 void bfs_level_tree(tree_t*);
-void tree_clear(tree_t*);
-void queue_initialization(queue_t*);
-void queue_push(queue_t*, tree_t*);
-void queue_pop(queue_t*);
-tree_t* queue_front(queue_t*);
-int queue_empty(queue_t*);
+void tree_clear(tree_t* );
+void queue_initialization(queue_t* );
+void queue_push(queue_t* , tree_t* );
+void queue_pop(queue_t* );
+tree_t* queue_front(queue_t* );
+int queue_empty(queue_t* );
+void treeoutput(tree_t* );
 
 int main()
 {
     tree_t* tr = NULL;
     tr = input_data(tr);
+    treeoutput(tr); //check whether the tree is constructed correctly  
     bfs_level_tree(tr);
     tree_clear(tr);
     printf("\n\n\n\n");
@@ -45,7 +47,7 @@ int main()
 tree_t* input_data(tree_t* root)
 {
     int temp, count;
-    printf(" input count of tree's nodes : ");
+    printf("\n input count of tree's nodes : ");
     scanf_s("%d", &count);
     printf(" input nodes: \n");
     for (int i = 0; i < count; i++)
@@ -55,6 +57,16 @@ tree_t* input_data(tree_t* root)
     }
     printf("\n");
     return root;
+}
+
+void treeoutput(tree_t* root)
+{
+    if (root != NULL)
+    {
+        treeoutput(root->left);
+        printf("\n %d ", root->key);
+        treeoutput(root->right);
+    }
 }
 
 void bfs_level_tree(tree_t* root)
@@ -68,7 +80,7 @@ void bfs_level_tree(tree_t* root)
     int input_lvl, current_lvl = 1;
     queue_initialization(&q);
     queue_push(&q, temp);
-    printf(" input level from which you want to print nodes : ");
+    printf("\n\n input level from which you want to print nodes : ");
     scanf_s("%d", &input_lvl);
     printf("\n\n");
     while (!queue_empty(&q))
